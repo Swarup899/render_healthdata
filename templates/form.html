@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Predict Disease</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #933d36a9;
+    background: linear-gradient(135deg, #925d94, #4ca1af);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.container {
+    background:rgba(215, 218, 213, 0.836);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 2px 5px rgb(209, 185, 185);
+    width: 300px;
+    text-align: center;
+}
+
+.container h1 {
+    margin-bottom: 20px;
+    color: #281f13fb;
+    font-size: 24px;
+}
+
+.container input {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+    color: #6b5b5b;
+    background:rgba(221, 216, 216, 0.941);
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+.container input::placeholder {
+    color: #252315;
+}
+
+.container button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #ffffff;
+    background: linear-gradient(90deg, rgb(78, 79, 151),rgba(104, 144, 82, 0.8)); 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.container button:hover {
+    background: #91903b;
+}
+
+.result {
+    margin-top: 20px;
+    color: #ffffff;
+    padding: 10px;
+    background:rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+    font-size: 18px;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Predict Disease</h1>
+        <form id="prediction-form">
+            <input name="age" type="number" placeholder="Enter age" required>
+            <input name="gender" type="text" placeholder="Enter gender (Male/Female)" required>
+            <input name="bmi" type="number" step="0.1" placeholder="Enter BMI" required>
+            <input name="bp" type="number" placeholder="Enter blood pressure" required>
+            <input name="sugar" type="number" placeholder="Enter sugar level" required>
+            <input name="cholesterol" type="number" placeholder="Enter cholesterol" required>
+            <input name="smoking" type="text" placeholder="Smoking (Yes/No)" required>
+            <input name="family_history" type="text" placeholder="Family History (Yes/No)" required>
+            <button type="submit">Predict</button>
+        </form>
+
+        <div id="result" class="result" style="display: none;"></div>
+    </div>
+
+    <script>
+    document.getElementById('prediction-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const form = e.target;
+        const formData = new FormData(form);
+        const response = await fetch('/predict', {method:'POST',body:formData});
+
+        const result = await response.json();
+
+        document.getElementById('result').innerText = result.result;
+        document.getElementById('result').style.display = 'block';
+
+        form.reset();
+    });
+    </script>
+</body>
+</html>
