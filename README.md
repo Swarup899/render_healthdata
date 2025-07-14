@@ -18,3 +18,20 @@ HTML, CSS, JS
 Pickle for saving ML models
 
 Gunicorn for production WSGI server
+
+
+### 🚀 How to Run Locally
+
+# Clone the repository
+git clone https://github.com/Swarup899/render_healthdata.git
+cd render_healthdata
+
+# Create and activate virtual environment
+python -m venv venv
+venv\Scripts\activate  # On Windows
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the app
+python app.py
